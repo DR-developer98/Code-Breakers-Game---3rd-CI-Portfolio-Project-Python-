@@ -97,7 +97,8 @@ def generate_secret_code(mode):
             secret_code.append(x)
         number_of_digits = 10
         number_of_attempts = 10
-    print("The secret code has been generated!")
+    print("The secret code has been generated!\n")
+    print("Get your brain juices flowin' and start crackin' the code!\n")
     print(f"The number of digits is: {number_of_digits}")
     print(f"DELETE; the secret code is{secret_code}")
     return (secret_code, number_of_digits, number_of_attempts)
@@ -106,7 +107,6 @@ def input_guessed_code(gen_code, digits, attempts):
     """
     Prompts the user to enter a code
     """
-    print("Get your brain juices flowin' and start crackin' the code!\n")
     while True:
         entered_code = input(f"Enter your {digits} digits here, separated by a comma: ").split(",")
         guessed_code = []
@@ -139,7 +139,7 @@ def validate_guessed_code(code, digits):
     else:
         return True
 
-def check_guessed_code_against_secret_one(gen_code, user_code, attempts):
+def check_guessed_code_against_secret_one(gen_code, user_code, attempts, digits):
     """
     Checks the code guessed by the user
     against the secret one and provides feedback.
@@ -151,17 +151,35 @@ def check_guessed_code_against_secret_one(gen_code, user_code, attempts):
     for x, y in zip(user_code, gen_code):
         if x in gen_code:
             if x == y:
-                feedback += " O "
+                feedback += "O "
             else:
-                feedback += " X "
+                feedback += "X "
         else:
-            feedback += " - "
+            feedback += "- "
     
     if feedback != " O O O O ":
         attempts -= 1
-    
+
     print(f"Here is your feedback: {feedback}")
     print(f"You have {attempts} attempts left")
+
+    return (feedback, attempts)
+
+def won_or_lost(feedback, attempts):
+    """
+    Checks whether the user's guess is correct and
+    determines - based on the feedback and the number 
+    of attempts left - whether the user has won/lost/needs 
+    to make another guess.
+    """
+    if attempts != 0:
+        if feedback == " O O O O ":
+            print("Congratulations! You managed to crack the code!")
+        else:
+            print("Try again")
+    else:
+        print("Unfortunately, you're out of attempts :(. Don't worry, though, I'm sure you'll get the hang of this very soon! :D")
+
 
 
 chosen_username = start_game()
@@ -170,4 +188,7 @@ generated_code = generate_secret_code(selected_mode)
 secret_code, number_of_digits, number_of_attempts = generate_secret_code(selected_mode)
 user_input = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
 gen_code, guessed_code, attempts = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
-check_guessed_code_against_secret_one(gen_code, guessed_code, attempts)
+feedback, attempts = check_guessed_code_against_secret_one(gen_code, guessed_code, attempts, number_of_digits)
+won_or_lost(feedback, attempts)
+
+
