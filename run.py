@@ -58,6 +58,10 @@ def choose_mode(username):
     return entered_mode
                 
 def validate_mode(mode):
+    """
+    Checks for correct mode input.
+    Raises an error when the input isn't 1, 2 or 3.
+    """
     if mode not in [1, 2, 3]:
         raise ValueError("Invalid input. Please enter 1, 2 or 3")
     else:
@@ -90,14 +94,37 @@ def generate_secret_code(username, mode):
     print("The secret code has been generated!")
     print("Get your brain fluids flowin' and crack the code!\n")
     while True:
-        guessed_code = input(f"Enter your {number_of_digits} digits here, separated by a comma: ")
+        entered_code = input(f"Enter your {number_of_digits} digits here, separated by a comma: ").split(",")
+        guessed_code = []
+        for x in entered_code:
+            x = int(x)
+            guessed_code.append(x)
         try: 
-            if validate_guessed_code(guessed_code):
+            if validate_guessed_code(guessed_code, number_of_digits):
+                print(f"You've entered the correct number of digits!")
                 break
         except ValueError as e:
             print(f"Error: {e}")
+        print(f"Your first guess is: {guessed_code}")
+        print(f"The secret_code is {secret_code}")
     return secret_code
+
+def validate_guessed_code(code, digits):
+    """
+    Performs a check on the entered code.
+    Raises an error if the number of digits isn't the correct one.
+    Raises an error if the guessed code contains numbers 
+    not included in the range 0-10.
+    """
+    for x in code:
+        if x not in range(11):
+            raise ValueError("The code may only contain numbers between 0 and 10")
         
+    if len(code) != digits:
+        raise ValueError(f"In this mode you need to provide {digits} digits, you've only entered {len(code)}")
+    else:
+        return True
+
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
 generated_code = generate_secret_code(chosen_username, selected_mode)
