@@ -9,7 +9,7 @@ def start_game():
     print("Welcome to 'THE CODE BREAKERS GAME'!")
     print("Time to flex your logic muscles! Can you crack the code?")
     print("Here's how it works:")
-    print("1. A secret code (4 to 10 digits) is generated")
+    print("1. A secret code (4 to 10 digits) is generated (with numbers between 0 and 10)")
     print("2. Your job is to guess the code by entering the right number of digits")
     print("3. With each attempt you'll be provided with the following feedback:\n")
     print("O = right digit in the right place")
@@ -51,7 +51,7 @@ def choose_mode(username):
         entered_mode = int(input("Please enter 1, 2 or 3 for the desired mode: \n"))
         try:
             if validate_mode(entered_mode):
-                print("Entered mode is valid!")
+                #print("Entered mode is valid!") delete this print statement
                 break
         except ValueError as e:
             print(f"Error: {e}")
@@ -62,7 +62,44 @@ def validate_mode(mode):
         raise ValueError("Invalid input. Please enter 1, 2 or 3")
     else:
         return True
+    
+def generate_secret_code(username, mode):
+    """
+    Generates the secret code to be guessed by the user.
+    Uses entered numeric value to generate a secret code 
+    with as many digits as dictated by the selected mode.
+    """
+    print("Generating the secret code...\n")
+    secret_code = []
+    number_of_digits = None
+    if mode == 1:
+        for i in range(4):
+            x = random.randrange(11)
+            secret_code.append(x)
+        number_of_digits = 4
+    if mode == 2:
+        for i in range(6):
+            x = random.randrange(11)
+            secret_code.append(x)
+        number_of_digits = 6
+    if mode == 3:
+        for i in range(10):
+            x = random.randrange(11)
+            secret_code.append(x)
+        number_of_digits = 10
+    print("The secret code has been generated!")
+    print("Get your brain fluids flowin' and crack the code!\n")
+    while True:
+        guessed_code = input(f"Enter your {number_of_digits} digits here, separated by a comma: ")
+        try: 
+            if validate_guessed_code(guessed_code):
+                break
+        except ValueError as e:
+            print(f"Error: {e}")
+    return secret_code
         
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
+generated_code = generate_secret_code(chosen_username, selected_mode)
+
 
