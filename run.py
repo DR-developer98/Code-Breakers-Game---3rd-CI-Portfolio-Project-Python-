@@ -6,6 +6,7 @@ def start_game():
     Starts the game, explaining the rules
     """
     print("--------------------------------------")
+    print("--------------------------------------")
     print("Welcome to 'THE CODE BREAKERS GAME'!")
     print("Time to flex your logic muscles! Can you crack the code?")
     print("Here's how it works:")
@@ -13,9 +14,11 @@ def start_game():
     print("2. Your job is to guess the code by entering the right number of digits")
     print("3. With each attempt you'll be provided with the following feedback:\n")
     print("O = right digit in the right place")
-    print("X = right digit in the wrong place\n")
+    print("X = right digit in the wrong place")
+    print("- = wrong digit (not an element of the secret code)\n")
     print("Use this feedback to adjust your strategy.")
     print("Have fun and happy code breaking!")
+    print("--------------------------------------")
     print("--------------------------------------")
     while True:
         try:
@@ -51,7 +54,6 @@ def choose_mode(username):
         entered_mode = int(input("Please enter 1, 2 or 3 for the desired mode: \n"))
         try:
             if validate_mode(entered_mode):
-                #print("Entered mode is valid!") delete this print statement
                 break
         except ValueError as e:
             print(f"Error: {e}")
@@ -67,7 +69,7 @@ def validate_mode(mode):
     else:
         return True
     
-def generate_secret_code(username, mode):
+def generate_secret_code(mode):
     """
     Generates the secret code to be guessed by the user.
     Uses entered numeric value to generate a secret code 
@@ -76,57 +78,96 @@ def generate_secret_code(username, mode):
     print("Generating the secret code...\n")
     secret_code = []
     number_of_digits = None
+    number_of_attempts = None
     if mode == 1:
         for i in range(4):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 4
-    if mode == 2:
+        number_of_attempts = 4
+    elif mode == 2:
         for i in range(6):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 6
-    if mode == 3:
+        number_of_attempts = 6
+    elif mode == 3:
         for i in range(10):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 10
+        number_of_attempts = 10
     print("The secret code has been generated!")
-    print("Get your brain fluids flowin' and crack the code!\n")
+    print(f"The number of digits is: {number_of_digits}")
+    print(f"DELETE; the secret code is{secret_code}")
+    return (secret_code, number_of_digits, number_of_attempts)
+
+def input_guessed_code(gen_code, digits, attempts):
+    """
+    Prompts the user to enter a code
+    """
+    print("Get your brain juices flowin' and start crackin' the code!\n")
     while True:
-        entered_code = input(f"Enter your {number_of_digits} digits here, separated by a comma: ").split(",")
+        entered_code = input(f"Enter your {digits} digits here, separated by a comma: ").split(",")
         guessed_code = []
         for x in entered_code:
-            x = int(x)
-            guessed_code.append(x)
+            guessed_code.append(int(x))
+
         try: 
             if validate_guessed_code(guessed_code, number_of_digits):
                 print(f"You've entered the correct number of digits!")
                 break
         except ValueError as e:
             print(f"Error: {e}")
-        print(f"Your first guess is: {guessed_code}")
-        print(f"The secret_code is {secret_code}")
-    return secret_code
+    return (gen_code, guessed_code, attempts)
 
 def validate_guessed_code(code, digits):
     """
     Performs a check on the entered code.
-    Raises an error if the number of digits isn't the correct one.
-    Raises an error if the guessed code contains numbers 
-    not included in the range 0-10.
+    Raises an error:
+    1) if the number of digits isn't the correct one;
+    2) if the guessed code contains numbers 
+    not included in the range 0-10;
+    3) if the user inputs a non-numeric value in the code.
     """
     for x in code:
         if x not in range(11):
             raise ValueError("The code may only contain numbers between 0 and 10")
-        
+    #Add condition to check for non-numerical characters in the entered code
     if len(code) != digits:
         raise ValueError(f"In this mode you need to provide {digits} digits, you've only entered {len(code)}")
     else:
         return True
 
+def check_guessed_code_against_secret_one(gen_code, user_code, attempts):
+    """
+    Checks the code guessed by the user
+    against the secret one and provides feedback.
+    """
+    print(f"You have a maximum of {attempts} attempts")
+    print(f"The secret code is: {gen_code}")
+    print(f"The code you've input is: {user_code}")
+    feedback = " "
+    for x, y in zip(user_code, gen_code):
+        if x in gen_code:
+            if x == y:
+                feedback += " O "
+            else:
+                feedback += " X "
+        else:
+            feedback += " - "
+    
+    if feedback != " O O O O ":
+        attempts -= 1
+    
+    print(f"Here is your feedback: {feedback}")
+    print(f"You have {attempts} attempts left")
+
+
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
-generated_code = generate_secret_code(chosen_username, selected_mode)
-
-
+generated_code = generate_secret_code(selected_mode)
+secret_code, number_of_digits, number_of_attempts = generate_secret_code(selected_mode)
+user_input = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
+gen_code, guessed_code, attempts = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
+check_guessed_code_against_secret_one(gen_code, guessed_code, attempts)
