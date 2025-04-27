@@ -1,5 +1,4 @@
 import random
-import colorama
 
 def start_game():
     """
@@ -100,26 +99,8 @@ def generate_secret_code(mode):
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
     print(f"The number of digits is: {number_of_digits}")
-    print(f"DELETE; the secret code is{secret_code}")
+    print(f"DELETE; the secret code is{secret_code}")#DELETE!!!
     return (secret_code, number_of_digits, number_of_attempts)
-
-def input_guessed_code(gen_code, digits, attempts):
-    """
-    Prompts the user to enter a code
-    """
-    while True:
-        entered_code = input(f"Enter your {digits} digits here, separated by a comma: ").split(",")
-        guessed_code = []
-        for x in entered_code:
-            guessed_code.append(int(x))
-
-        try: 
-            if validate_guessed_code(guessed_code, digits):
-                print(f"You've entered the correct number of digits!")
-                break
-        except ValueError as e:
-            print(f"Error: {e}")
-    return (gen_code, guessed_code, attempts, digits)
 
 def validate_guessed_code(user_code, digits):
     """
@@ -139,29 +120,42 @@ def validate_guessed_code(user_code, digits):
     else:
         return True
 
-def check_guessed_code_against_secret_one(gen_code, user_code, attempts, digits):
+def check_guessed_code_against_secret_one(gen_code, attempts, digits):
     """
     Checks the code guessed by the user
     against the secret one and provides feedback.
     """
     print(f"You have a maximum of {attempts} attempts")
-    print(f"The secret code is: {gen_code}")
-    print(f"The code you've input is: {user_code}")
-    feedback = " "
-    for x, y in zip(user_code, gen_code):
-        if x in gen_code:
-            if x == y:
-                feedback += "O "
-            else:
-                feedback += "X "
-        else:
-            feedback += "- "
-    
-    if feedback != " O O O O ":
-        attempts -= 1
 
-    print(f"Here is your feedback: {feedback}")
-    print(f"You have {attempts} attempts left")
+    while attempts > 0:
+        entered_code = input(f"Enter your {digits} digits here, separated by a comma: \n").split(",")
+        guessed_code = [int(x) for x in entered_code]
+
+        try: 
+            if validate_guessed_code(guessed_code, digits):
+                print("The number of digits is correct!\n")
+        except ValueError as e:
+            print(f"Error: {e}")
+            continue
+
+        feedback = " "
+
+        for x, y in zip(guessed_code, gen_code):
+            if x in gen_code:
+                if x == y:
+                    feedback += "O "
+                else:
+                    feedback += "X "
+            else:
+                feedback += "- "
+    
+        attempts -= 1
+        if guessed_code == gen_code:
+            print("Congratulations! You've cracked the code!")
+            break                     
+        else:
+            print(f"Here is your feedback: {feedback}")
+            print(f"You have {attempts} attempts left\n")
 
     return (feedback, attempts)
 
@@ -183,6 +177,4 @@ def won_or_lost(feedback, attempts):
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
 generated_code = generate_secret_code(selected_mode)
-user_input = input_guessed_code(*generated_code)
-first_code_check = check_guessed_code_against_secret_one(*user_input)
-first_result = won_or_lost(*first_code_check)
+feedback = check_guessed_code_against_secret_one(*generated_code)
