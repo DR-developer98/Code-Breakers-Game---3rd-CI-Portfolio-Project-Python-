@@ -138,41 +138,28 @@ def check_guessed_code_against_secret_one(gen_code, attempts, digits):
             print(f"Error: {e}")
             continue
 
-        feedback = " "
+        feedback = []
 
         for x, y in zip(guessed_code, gen_code):
             if x in gen_code:
                 if x == y:
-                    feedback += "O "
+                    feedback.append("O")
                 else:
-                    feedback += "X "
+                    feedback.append("X")
             else:
-                feedback += "- "
+                feedback.append("-")
     
         attempts -= 1
         if guessed_code == gen_code:
             print("Congratulations! You've cracked the code!")
-            break                     
+            break                  
         else:
-            print(f"Here is your feedback: {feedback}")
+            print(f"Here is your feedback: {feedback}\n")
             print(f"You have {attempts} attempts left\n")
-
-    return (feedback, attempts)
-
-def won_or_lost(feedback, attempts):
-    """
-    Checks whether the user's guess is correct and
-    determines - based on the feedback and the number 
-    of attempts left - whether the user has won/lost/needs 
-    to make another guess.
-    """
-    if attempts != 0:
-        if feedback == " O O O O ":
-            print("Congratulations! You managed to crack the code!")
-        else:
-            print("Try again")
-    else:
-        print("Unfortunately, you're out of attempts :(. Don't worry, though, I'm sure you'll get the hang of this very soon! :D")
+    if guessed_code != gen_code and attemtps == 0:
+        print("Unfortunately, you're out of attempts :(.")
+        print("Don't worry, though! You'll get the hang of it ;)")
+    return (feedback, attempts, gen_code, digits)
 
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
