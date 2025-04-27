@@ -114,14 +114,14 @@ def input_guessed_code(gen_code, digits, attempts):
             guessed_code.append(int(x))
 
         try: 
-            if validate_guessed_code(guessed_code, number_of_digits):
+            if validate_guessed_code(guessed_code, digits):
                 print(f"You've entered the correct number of digits!")
                 break
         except ValueError as e:
             print(f"Error: {e}")
-    return (gen_code, guessed_code, attempts)
+    return (gen_code, guessed_code, attempts, digits)
 
-def validate_guessed_code(code, digits):
+def validate_guessed_code(user_code, digits):
     """
     Performs a check on the entered code.
     Raises an error:
@@ -130,12 +130,12 @@ def validate_guessed_code(code, digits):
     not included in the range 0-10;
     3) if the user inputs a non-numeric value in the code.
     """
-    for x in code:
+    for x in user_code:
         if x not in range(11):
             raise ValueError("The code may only contain numbers between 0 and 10")
     #Add condition to check for non-numerical characters in the entered code
-    if len(code) != digits:
-        raise ValueError(f"In this mode you need to provide {digits} digits, you've only entered {len(code)}")
+    if len(user_code) != digits:
+        raise ValueError(f"In this mode you need to provide {digits} digits, you've only entered {len(user_code)}")
     else:
         return True
 
@@ -180,15 +180,9 @@ def won_or_lost(feedback, attempts):
     else:
         print("Unfortunately, you're out of attempts :(. Don't worry, though, I'm sure you'll get the hang of this very soon! :D")
 
-
-
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
 generated_code = generate_secret_code(selected_mode)
-secret_code, number_of_digits, number_of_attempts = generate_secret_code(selected_mode)
-user_input = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
-gen_code, guessed_code, attempts = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
-feedback, attempts = check_guessed_code_against_secret_one(gen_code, guessed_code, attempts, number_of_digits)
-won_or_lost(feedback, attempts)
-
-
+user_input = input_guessed_code(*generated_code)
+first_code_check = check_guessed_code_against_secret_one(*user_input)
+first_result = won_or_lost(*first_code_check)

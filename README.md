@@ -1,32 +1,28 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+/*Add logo here*/
 
-Welcome,
+<h1>The Code Breakers game!</h1>
+Add description
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+<h2>User stories</h2>
 
-## Reminders
+<h2>Features</h2>
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+<h2>Fixed bugs</h2>
+<ul>
+<li>The program was originating two different secret codes and was prompting the user to input their guess twice. This was caused by the the generate_secret_code(mode) and input_guessed_code(gen_code, digits, attempts) being called twice. Since both functions return a tuple with three variables, I had to unpack them in order to access the variables that I had to pass as arguments to the input_guessed_code function. 
+At the beginning I used the following solution:</li>
 
-## Creating the Heroku app
+secret_code, number_of_digits, number_of_attempts = generate_secret_code(mode)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+user_input = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
 
-1. `heroku/python`
-2. `heroku/nodejs`
+gen_code, guessed_code, attempts, digits = input_guessed_code(secret_code, number_of_digits, number_of_attempts)
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+but then I understood that I was in fact calling the functions twice.
+<-- CREDIT: Stackoverflow, add link --> On Stackoverflow I found out that you can unpack the function directly when passing it as an argument to another function.
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+generated_code = generate_secret_code(selected_mode)
+user_input = input_guessed_code<strong style = "color: red">(*generated_code)</strong>
 
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
+This solution prevents the input_guessed_code from being called twice
+</ul>
