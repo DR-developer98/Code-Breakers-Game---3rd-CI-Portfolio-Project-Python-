@@ -89,17 +89,17 @@ def generate_secret_code(mode):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 6
-        number_of_attempts = 6
+        number_of_attempts = 4
     elif mode == 3:
         for i in range(10):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 10
-        number_of_attempts = 10
+        number_of_attempts = 5
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
     print(f"The number of digits is: {number_of_digits}")
-    print(f"DELETE; the secret code is{secret_code}")#DELETE!!!
+    print(f"DELETE; the secret code is {secret_code}")#DELETE!!!
     return (secret_code, number_of_digits, number_of_attempts)
 
 def validate_guessed_code(user_code, digits):
@@ -114,13 +114,12 @@ def validate_guessed_code(user_code, digits):
     for x in user_code:
         if x not in range(11):
             raise ValueError("The code may only contain numbers between 0 and 10")
-    #Add condition to check for non-numerical characters in the entered code
     if len(user_code) != digits:
         raise ValueError(f"In this mode you need to provide {digits} digits, you've only entered {len(user_code)}")
     else:
         return True
 
-def check_guessed_code_against_secret_one(gen_code, attempts, digits):
+def check_guessed_code_against_secret_one(gen_code, digits, attempts):
     """
     Checks the code guessed by the user
     against the secret one and provides feedback.
@@ -156,6 +155,7 @@ def check_guessed_code_against_secret_one(gen_code, attempts, digits):
         else:
             print(f"Here is your feedback: {feedback}\n")
             print(f"You have {attempts} attempts left\n")
+
     if guessed_code != gen_code and attemtps == 0:
         print("Unfortunately, you're out of attempts :(.")
         print("Don't worry, though! You'll get the hang of it ;)")

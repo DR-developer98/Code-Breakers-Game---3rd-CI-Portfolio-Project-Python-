@@ -25,4 +25,5 @@ generated_code = generate_secret_code(selected_mode)
 user_input = input_guessed_code<strong style = "color: red">(*generated_code)</strong>
 
 This solution prevents the input_guessed_code from being called twice
+<li>At some point the program was seemingly swapping number_of_attempts with number_of_digits. This was caused by the order I had mentioned the parameters inside the brackets of the check_guessed_code_against_secret_one(gen_code, attempts, digits) function, so when unpacking the tuple with the returned variables from the generated_code variable, the number_of_attempts and number_of_digits were being assigned respectively to digits and to attempts. This was simply fixed by changing the order of the parameters to (gen_code, digits, attempts).</li>
 </ul>
