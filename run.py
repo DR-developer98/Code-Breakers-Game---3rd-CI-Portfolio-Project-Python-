@@ -1,4 +1,7 @@
 import random
+from colorama import Fore, Style, init
+
+init() #initializes colorama
 
 def start_game():
     """
@@ -12,9 +15,9 @@ def start_game():
     print("1. A secret code (4 to 10 digits) is generated (with numbers between 0 and 10)")
     print("2. Your job is to guess the code by entering the right number of digits")
     print("3. With each attempt you'll be provided with the following feedback:\n")
-    print("O = right digit in the right place")
-    print("X = right digit in the wrong place")
-    print("- = wrong digit (not an element of the secret code)\n")
+    print(f"{Fore.GREEN + "O" + Style.RESET_ALL} = right digit in the right place")
+    print(f"{Fore.YELLOW + "X" + Style.RESET_ALL} = right digit in the wrong place")
+    print(f"{Fore.RED + "-" + Style.RESET_ALL}  = wrong digit (not an element of the secret code)\n")
     print("Use this feedback to adjust your strategy.")
     print("Have fun and happy code breaking!")
     print("--------------------------------------")
@@ -142,11 +145,11 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
         for x, y in zip(guessed_code, gen_code):
             if x in gen_code:
                 if x == y:
-                    feedback.append("O")
+                    feedback.append(Fore.GREEN + "O" + Style.RESET_ALL)
                 else:
-                    feedback.append("X")
+                    feedback.append(Fore.YELLOW + "X" + Style.RESET_ALL)
             else:
-                feedback.append("-")
+                feedback.append(Fore.RED + "-" + Style.RESET_ALL)
     
         #attempts -= 1
         if guessed_code == gen_code:
@@ -154,7 +157,7 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
             break                  
         else:
             attempts -= 1
-            print(f"Here is your feedback: {feedback}\n")
+            print(f"Here is your feedback: {' '.join(feedback)}\n")
             print(f"You have {attempts} attempts left\n")
 
     if guessed_code != gen_code and attemtps == 0:
@@ -169,7 +172,6 @@ def assign_points(attempts_left):
     """
     score = attempts_left * 50
     print(f"Your score: {score}")
-    
 
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)

@@ -26,4 +26,13 @@ user_input = input_guessed_code<strong style = "color: red">(*generated_code)</s
 
 This solution prevents the input_guessed_code from being called twice
 <li>At some point the program was seemingly swapping number_of_attempts with number_of_digits. This was caused by the order I had mentioned the parameters inside the brackets of the check_guessed_code_against_secret_one(gen_code, attempts, digits) function, so when unpacking the tuple with the returned variables from the generated_code variable, the number_of_attempts and number_of_digits were being assigned respectively to digits and to attempts. This was simply fixed by changing the order of the parameters to (gen_code, digits, attempts).</li>
+<li>When implementing colorama to add colour to the feedback elements (O, X and -), the terminal was returning something like:</li>
+
+<em>"here is your feedback: ['\x1b[32mO\x1b[0m', '\x1b[33mX\x1b[0m', '\x1b[33mX\x1b[0m', '\x1b[33mX\x1b[0m']"</em>
+
+This was caused by the feedback being provided to the user in the form of a list of strings. 
+To fix this, I used the .join method like in the example here below, to turn the list into one single string, where the colours where rendered correctly. CREDIT: Microsoft Copilot
+<br>
+print(f"Here is your feedback: {' '.join(feedback)}\n")
 </ul>
+
