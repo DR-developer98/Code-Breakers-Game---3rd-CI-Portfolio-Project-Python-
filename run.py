@@ -148,20 +148,31 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
             else:
                 feedback.append("-")
     
-        attempts -= 1
+        #attempts -= 1
         if guessed_code == gen_code:
             print("Congratulations! You've cracked the code!")
             break                  
         else:
+            attempts -= 1
             print(f"Here is your feedback: {feedback}\n")
             print(f"You have {attempts} attempts left\n")
 
     if guessed_code != gen_code and attemtps == 0:
         print("Unfortunately, you're out of attempts :(.")
         print("Don't worry, though! You'll get the hang of it ;)")
-    return (feedback, attempts, gen_code, digits)
+    return attempts
+
+def assign_points(attempts_left):
+    """
+    Assigns 50 points to the user based on the number 
+    of left attempts
+    """
+    score = attempts_left * 50
+    print(f"Your score: {score}")
+    
 
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
 generated_code = generate_secret_code(selected_mode)
 feedback = check_guessed_code_against_secret_one(*generated_code)
+final_score = assign_points(feedback)
