@@ -178,16 +178,33 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
         print("Don't worry, though! You'll get the hang of it ;)")
     return attempts
 
-def assign_points(attempts_left):
+def assign_points(username, attempts_left):
     """
     Assigns 50 points to the user based on the number 
     of left attempts
     """
     score = attempts_left * 50
-    print(f"Your score: {score}")
+    print(f"{username}, this is your score: {score}")
+
+    return score
+
+def update_leaderboard(username, mode, score):
+    """
+    Updates the leaderboard with username, mode and final score
+    """
+    mode_worksheet = None
+    row = username, score
+    if mode == 1:
+        mode_worksheet = SHEET.worksheet("Easy mode")
+    elif mode == 2:
+        mode_worksheet = SHEET.worksheet("Medium mode")
+    elif mode == 3:
+        mode_worksheet = SHEET.worksheet("Hard mode")
+    mode_worksheet.append_row(row)
 
 chosen_username = start_game()
 selected_mode = choose_mode(chosen_username)
 generated_code = generate_secret_code(selected_mode)
 feedback = check_guessed_code_against_secret_one(*generated_code)
-final_score = assign_points(feedback)
+final_score = assign_points(chosen_username, feedback)
+update_leaderboard(chosen_username, selected_mode, final_score)
