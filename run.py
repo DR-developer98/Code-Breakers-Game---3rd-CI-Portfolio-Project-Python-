@@ -27,17 +27,18 @@ def start_game():
     print("Time to flex your logic muscles! Can you crack the code?")
     print("Here's how it works:")
     print("1. A secret code (4 to 10 digits) is generated \
-           (with numbers between 0 and 10)")
+(with numbers between 0 and 10)")
+    print("Numbers can occur more than once within the code")
     print("2. Your job is to guess the code \
-          by entering the right number of digits")
+by entering the right number of digits")
     print("3. With each attempt you'll be provided \
-          with the following feedback:\n")
+with the following feedback:\n")
     print(f"{Fore.GREEN + "O" + Style.RESET_ALL} \
-          = right digit in the right place")
+= right digit in the right place")
     print(f"{Fore.YELLOW + "X" + Style.RESET_ALL} \
-          = right digit in the wrong place")
+= right digit in the wrong place")
     print(f"{Fore.RED + "-" + Style.RESET_ALL} \
-          = wrong digit (not an element of the secret code)\n")
+= wrong digit (not an element of the secret code)\n")
     print("Use this feedback to adjust your strategy.")
     print("Have fun and happy code breaking!")
     print("--------------------------------------")
@@ -45,12 +46,12 @@ def start_game():
     while True:
         try:
             entered_username = input("Choose a username \
-                                     (at least 5 characters): \n")
+(at least 5 characters): \n")
             if validate_username(entered_username):
-                print("The entered username is valid!")
+                print("The entered username is valid!\n")
                 break
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
     return entered_username
 
 
@@ -60,12 +61,78 @@ def validate_username(username):
     """
     if " " in username:
         raise ValueError("The username may not contain blank spaces, \
-                         use dashes or underscores instead")
+use dashes or underscores instead")
     elif len(username) < 5:
         raise ValueError(f"The username must contain at least 5 characters,\
-                          you entered {len(username)}")
+you entered {len(username)}")
     else:
         return True
+
+
+def start_game_or_view_history(username):
+    """
+    Presents the user with the possibility to either \
+    start playing the game or to view the rankings \
+    for the different modes
+    """
+    print(f"{username}, what would you like to do?\n")
+    print("1. Start the game")
+    print("2. View rankings\n")
+    start_menu_choice = None
+    while True:
+        start_menu_choice = int(input("Please enter 1 or 2 to make a choice:"))
+        try:
+            if validate_start_menu_choice(start_menu_choice):
+                break
+        except ValueError as e:
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+    return start_menu_choice
+
+
+def validate_start_menu_choice(start_menu_choice):
+    """
+    Checks for correct menu choice input.
+    Raises an error when the input isn't 1 or 2.
+    """
+    if start_menu_choice not in [1, 2]:
+        raise ValueError("Invalid input. Please enter 1 or 2")
+    else:
+        return True
+
+
+def view_rankings():
+    """
+    Allows the user to view the rankings for the different modes
+    """
+    easy_mode = SHEET.worksheet("Easy mode")
+    easy_usernames = easy_mode.col_values(1)[1:10]
+    easy_scores = easy_mode.col_values(2)[1:10]
+
+    medium_mode = SHEET.worksheet("Medium mode")
+    medium_usernames = medium_mode.col_values(1)[1:10]
+    medium_scores = medium_mode.col_values(2)[1:10]
+
+    hard_mode = SHEET.worksheet("Hard mode")
+    hard_usernames = hard_mode.col_values(1)[1:10]
+    hard_scores = hard_mode.col_values(2)[1:10]
+
+    print("----------")
+    print("----------")
+    print(f"{Fore.GREEN + "Easy mode" + Style.RESET_ALL}\n")
+    for username, score in zip(easy_usernames, easy_scores):
+        print(f"{username}: {score}")
+    print("----------")
+    print("----------")
+    print(f"{Fore.GREEN + "Medium mode" + Style.RESET_ALL}\n")
+    for username, score in zip(medium_usernames, medium_scores):
+        print(f"{username}: {score}")
+    print("----------")
+    print("----------")
+    print(f"{Fore.GREEN + "Hard mode" + Style.RESET_ALL}\n")
+    for username, score in zip(hard_usernames, hard_scores):
+        print(f"{username}: {score}")
+    print("----------")
+    print("----------")
 
 
 def choose_mode(username):
@@ -79,12 +146,12 @@ def choose_mode(username):
     print("3. Hard (10-digit code)\n")
     while True:
         entered_mode = int(input("Please enter 1, 2 or 3 \
-                                 for the desired mode: \n"))
+for the desired mode: \n"))
         try:
             if validate_mode(entered_mode):
                 break
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
     return entered_mode
 
 
@@ -126,10 +193,10 @@ def generate_secret_code(mode):
             x = random.randrange(11)
             secret_code.append(x)
         number_of_digits = 10
-        number_of_attempts = 5
+        number_of_attempts = 8
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
-    print(f"The number of digits is: {number_of_digits}")
+    print(f"Your code must contain {number_of_digits} digits")  # DELETE!!!
     print(f"DELETE; the secret code is {secret_code}")  # DELETE!!!
     return (secret_code, number_of_digits, number_of_attempts)
 
@@ -146,10 +213,10 @@ def validate_guessed_code(user_code, digits):
     for x in user_code:
         if x not in range(11):
             raise ValueError("The code may only contain \
-                             numbers between 0 and 10")
+numbers between 0 and 10")
     if len(user_code) != digits:
         raise ValueError(f"In this mode you need to provide {digits} digits, \
-                          you've only entered {len(user_code)}")
+you've entered {len(user_code)}")
     else:
         return True
 
@@ -163,13 +230,13 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
 
     while attempts > 0:
         entered_code = input(f"Enter your {digits} digits here, \
-                              separated by a comma: \n").split(",")
+separated by a comma: \n").split(",")
         guessed_code = [int(x) for x in entered_code]
         try:
             if validate_guessed_code(guessed_code, digits):
                 print("The number of digits is correct!\n")
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
             continue
 
         feedback = []
@@ -192,13 +259,14 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
 
     if guessed_code != gen_code and attempts == 0:
         print("Unfortunately, you're out of attempts :(.")
+        print(f"The secret code is: {gen_code}")
         print("Don't worry, though! You'll get the hang of it ;)")
     return attempts
 
 
 def assign_points(username, attempts_left):
     """
-    Assigns 50 points to the user based on the number of left attempts
+    Assigns 50 points to the user for each left attempt
     """
     score = attempts_left * 50
     print(f"{username}, this is your score: {score}")
@@ -221,9 +289,19 @@ def update_leaderboard(username, mode, score):
     mode_worksheet.append_row(row)
 
 
-chosen_username = start_game()
-selected_mode = choose_mode(chosen_username)
-generated_code = generate_secret_code(selected_mode)
-feedback = check_guessed_code_against_secret_one(*generated_code)
-final_score = assign_points(chosen_username, feedback)
-update_leaderboard(chosen_username, selected_mode, final_score)
+def main():
+    chosen_username = start_game()
+    while True:
+        start_menu_choice = start_game_or_view_history(chosen_username)
+        if start_menu_choice == 1:
+            selected_mode = choose_mode(chosen_username)
+            generated_code = generate_secret_code(selected_mode)
+            feedback = check_guessed_code_against_secret_one(*generated_code)
+            final_score = assign_points(chosen_username, feedback)
+            update_leaderboard(chosen_username, selected_mode, final_score)
+            break
+        elif start_menu_choice == 2:
+            view_rankings()
+
+
+main()
