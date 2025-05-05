@@ -28,7 +28,6 @@ def start_game():
     print("Here's how it works:")
     print("1. A secret code (4 to 10 digits) is generated \
 (with numbers between 0 and 10)")
-    print("Numbers can occur more than once within the code")
     print("2. Your job is to guess the code \
 by entering the right number of digits")
     print("3. With each attempt you'll be provided \
@@ -173,27 +172,18 @@ def generate_secret_code(mode):
     with as many digits as dictated by the selected mode.
     """
     print("Generating the secret code...\n")
-    secret_code = []
     number_of_digits = None
     number_of_attempts = None
     if mode == 1:
-        for i in range(4):
-            x = random.randrange(11)
-            secret_code.append(x)
         number_of_digits = 4
         number_of_attempts = 4
     elif mode == 2:
-        for i in range(6):
-            x = random.randrange(11)
-            secret_code.append(x)
         number_of_digits = 6
         number_of_attempts = 4
     elif mode == 3:
-        for i in range(10):
-            x = random.randrange(11)
-            secret_code.append(x)
         number_of_digits = 10
         number_of_attempts = 8
+    secret_code = random.sample(range(11), number_of_digits)
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
     print(f"Your code must contain {number_of_digits} digits")  # DELETE!!!
