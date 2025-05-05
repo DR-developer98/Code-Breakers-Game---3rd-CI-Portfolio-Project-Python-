@@ -17,9 +17,9 @@ SHEET = GSPREAD_CLIENT.open("Leaderboard_code_breakers_game")
 init()  # initializes colorama
 
 
-def start_game():
+def start_program():
     """
-    Starts the game, explaining the rules
+    Starts the program, explaining the rules
     """
     print("--------------------------------------")
     print("--------------------------------------")
@@ -284,7 +284,7 @@ def update_leaderboard(username, mode, score):
 
 
 def main():
-    chosen_username = start_game()
+    chosen_username = start_program()
     while True:
         start_menu_choice = start_game_or_view_history(chosen_username)
         if start_menu_choice == 1:
