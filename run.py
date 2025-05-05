@@ -27,7 +27,7 @@ def start_game():
     print("Time to flex your logic muscles! Can you crack the code?")
     print("Here's how it works:")
     print("1. A secret code (4 to 10 digits) is generated \
-(with numbers between 0 and 10)")
+(with numbers from 0 to 10 inclusive)")
     print("2. Your job is to guess the code \
 by entering the right number of digits")
     print("3. With each attempt you'll be provided \
