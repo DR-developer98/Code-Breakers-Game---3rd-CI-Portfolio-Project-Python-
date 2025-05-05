@@ -183,7 +183,11 @@ def generate_secret_code(mode):
     elif mode == 3:
         number_of_digits = 10
         number_of_attempts = 8
+
+    # ↓↓↓CREDIT: geeksforgeeks↓↓↓
     secret_code = random.sample(range(11), number_of_digits)
+    # ↑↑↑CREDIT: geeksforgeeks↑↑↑
+
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
     print(f"Your code must contain {number_of_digits} digits")  # DELETE!!!
