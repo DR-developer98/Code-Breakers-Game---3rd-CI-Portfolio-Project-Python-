@@ -3,6 +3,8 @@
 I passed the code through a PEP8 Linter and confirmed there are no problems
 <br>
 <img src="assets/images-for-README/PEP-Validator-result.PNG" style="width: 75%">
+<br>
+<p>I tested the code in my local terminal and the Code Institute Heroku terminal</p>
 <h2 style="color: gold">Manual testing</h2>
 <table>
 <tr>

@@ -15,6 +15,7 @@ Link to GitHub repository: <a href="https://github.com/DR-developer98/Code-Break
 <li id="US3">As a player, I want to know how many attempts I have remaining, so that I can plan my strategy within the game’s constraints.</li>
 <li id="US4">As an experienced player, I want to be able to adjust the code length and difficulty level, so that the game becomes more challenging and I can improve my skills.
 </li>
+<li id="US5">As a player, I want to see a leaderboard so that I can compare my performance with others, track my improvement, and feel motivated to refine my strategy.</li>
 </ol>
 
 <h2 style="color: darkorange">Flowchart</h2>
@@ -58,7 +59,7 @@ The player will be asked to enter a username of at least 5 characters.</p>
 
 <img src="assets/images-for-README/start_menu.PNG">
 
-<p>The player will be able to select one of the options by entering the corresponding number (either 1, 2 or 3).
+<p>The player will be able to select one of the options by entering the corresponding number (either 1, 2 or 3). With this feature, the <a href="#US1">first user story</a> is addressed, as it presents the user with a straightforward list of options, that they can easily choose.
 The user's input will pass through another validation system, that checks whether the entered value can be parsed into an integer and if so, if it's an element of the [1, 2, 3] list.
 Feedback will be provided to the user, if the input is found to be invalid:</p>
 
@@ -72,7 +73,8 @@ Feedback will be provided to the user, if the input is found to be invalid:</p>
 <img src="assets/images-for-README/invalid-number-input-start-menu.PNG">
 
 <h4><em style="color: yellow">View Rankings</em></h4>
-<p>Entering 2 will load the rankings for the different modes. For each mode, the first 10 user-score pairs will be displayed. At the bottom of the list, the player will be able to either start the game, view the rankings again or quit the game.</p>
+<p>Entering 2 will load the rankings for the different modes. For each mode, the first 10 user-score pairs will be displayed. In this way, in compliance with the <a href="#US5">fifth user story</a>, the user will be able to compare their past performance to that of other players.
+At the bottom of the list, the player will be able to either start the game, view the rankings again or quit the game.</p>
 
 <img src="assets/images-for-README/rankings-part-1.PNG">
 <img src="assets/images-for-README/rankings-part-2-plus-start-menu.PNG">
@@ -89,7 +91,8 @@ Feedback will be provided to the user, if the input is found to be invalid:</p>
 <img src="assets/images-for-README/start-the-game-part-1.PNG">
 <img src="assets/images-for-README/mode-choosing-menu.PNG">
 
-<p>Here the player will be able to select the desired mode by entering the corresponding number: 1 for easy, 2 for medium and 3 for hard. This time around too, the input will pass through a validation system, that checks whether the entered value can be converted into an integer and if so, if it's an element of the list [1, 2, 3]. If this isn't the case, the program will provide feedback to the user</p>
+<p>Here the player will be able to select the desired mode by entering the corresponding number: 1 for easy, 2 for medium and 3 for hard. This feature incorporates the <a href="#US4">fourth user story</a>, as it allows the user to try and crack longer secret codes.
+This time around too, the input will pass through a validation system, that checks whether the entered value can be converted into an integer and if so, if it's an element of the list [1, 2, 3]. If this isn't the case, the program will provide feedback to the user</p>
 
 <img src="assets/images-for-README/feedback-invalid-mode-input.PNG">
 
@@ -103,11 +106,11 @@ Feedback will be provided to the user, if the input is found to be invalid:</p>
 
 <img src="assets/images-for-README/feedback-invalid-code-input.PNG">
 
-<p>If the entered code is in the right format, the program will start providing feedback, utilizing the elements listed in the start page.<p>
+<p>If the entered code is in the right format, the program will start providing feedback, utilizing the elements listed in the start page (as described in the <a href="#US2">second user story</a>).<p>
 
 <img src="assets/images-for-README/feedback-valid-code-input.PNG">
 
-<p>If the user doesn't guess right, the number of attempts will decrease by one. The program is designed to notify the player with each incorrect guess</p>
+<p>If the user doesn't guess right, the number of attempts will decrease by one. The program is designed to notify the player with each incorrect guess. In this way, as demanded by the <a href="#US3">third user story</a>, the player will know how many times they still can afford to guess wrong and adjust their strategy accordingly.</p>
 
 <img src="assets/images-for-README/decreasing-attempts.PNG">
 
@@ -140,6 +143,9 @@ Here too, the player will be able to start the game again (and therefore choose 
 <li>the possibility to include double values in the secret code to add another layer of complexity to the game;</li>
 <li>setting a timer for the user code input to increase the difficulty of the game even more.</li>
 </ul>
+
+<h2 style="color: darkorange">Data Model</h2>
+<p>The Code Breakers game operates with a structured data model centered around user inputs, game logic, and leaderboard management. The app dynamically generates a secret code and processes user guesses through validation and feedback mechanisms. Player attempts are stored in lists, ensuring efficient comparison with the correct sequence. The game maintains a leaderboard by retrieving usernames and scores from Google Sheets, where data is sorted and displayed appropriately. This model ensures a seamless flow of interaction, allowing for a competitive and engaging experience.</p>
 
 <h2 style="color: darkorange">Testing</h2>
 <p>Please refer to <a href="TESTING.md">TESTING.md</a></p>
