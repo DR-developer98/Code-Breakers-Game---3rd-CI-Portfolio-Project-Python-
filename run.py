@@ -81,24 +81,29 @@ def start_rankings_quit(username):
     print("1. Start the game")
     print("2. View rankings")
     print("3. Quit the game\n")
-    start_menu_choice = None
+    start_menu_choice_int = None
     while True:
-        start_menu_choice = int(input("Please enter 1, 2 or 3  \
-to make a choice:"))
-        try:
-            if validate_start_menu_choice(start_menu_choice):
-                break
-        except ValueError as e:
-            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
-    return start_menu_choice
+        start_menu_choice = input("Please enter 1, 2 or 3  \
+to make a choice:")
+        if not start_menu_choice.strip().isdigit():
+            print(f"{Fore.RED}Error: \
+Invalid input. Please enter 1, 2 or 3{Style.RESET_ALL}")
+        else:
+            start_menu_choice_int = int(start_menu_choice)
+            try:
+                if validate_start_menu_choice(start_menu_choice_int):
+                    break
+            except ValueError as e:
+                print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+    return start_menu_choice_int
 
 
-def validate_start_menu_choice(start_menu_choice):
+def validate_start_menu_choice(start_menu_choice_int):
     """
     Checks for correct menu choice input.
     Raises an error when the input isn't 1 or 2.
     """
-    if start_menu_choice not in [1, 2, 3]:
+    if start_menu_choice_int not in [1, 2, 3]:
         raise ValueError("Invalid input. Please enter 1, 2 or 3")
     else:
         return True
@@ -160,15 +165,21 @@ def choose_mode(username):
     print("1. Easy (4-digit code)")
     print("2. Medium (6-digit code)")
     print("3. Hard (10-digit code)\n")
+    entered_mode_int = None
     while True:
-        entered_mode = int(input("Please enter 1, 2 or 3 \
-for the desired mode: \n"))
-        try:
-            if validate_mode(entered_mode):
-                break
-        except ValueError as e:
-            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
-    return entered_mode
+        entered_mode = input("Please enter 1, 2 or 3 \
+for the desired mode: \n")
+        if not entered_mode.strip().isdigit():
+            print(f"{Fore.RED}Error: \
+Invalid input. Please enter 1, 2 or 3{Style.RESET_ALL}")
+        else:
+            entered_mode_int = int(entered_mode)
+            try:
+                if validate_mode(entered_mode_int):
+                    break
+            except ValueError as e:
+                print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+    return entered_mode_int
 
 
 def validate_mode(mode):
@@ -312,16 +323,16 @@ def update_leaderboard(username, mode, score):
 def main():
     chosen_username = start_program()
     while True:
-        start_menu_choice = start_rankings_quit(chosen_username)
-        if start_menu_choice == 1:
+        start_menu_choice_def = start_rankings_quit(chosen_username)
+        if start_menu_choice_def == 1:
             selected_mode = choose_mode(chosen_username)
             generated_code = generate_secret_code(selected_mode)
             feedback = check_guessed_code_against_secret_one(*generated_code)
             final_score = assign_points(chosen_username, feedback)
             update_leaderboard(chosen_username, selected_mode, final_score)
-        elif start_menu_choice == 2:
+        elif start_menu_choice_def == 2:
             view_rankings()
-        elif start_menu_choice == 3:
+        elif start_menu_choice_def == 3:
             start_program()
 
 
