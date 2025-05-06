@@ -1,5 +1,7 @@
 import random
 from colorama import Fore, Style, init
+
+# ↓↓↓CREDIT: Love Sandwiches Walkthrough Project↓↓↓
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -13,6 +15,7 @@ CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("Leaderboard_code_breakers_game")
+# ↑↑↑CREDIT: Love Sandwiches Walkthrough Project↑↑↑
 
 init()  # initializes colorama
 
@@ -109,9 +112,11 @@ def view_rankings():
     easy_mode = SHEET.worksheet("Easy mode")
     easy_usernames = easy_mode.col_values(1)[1:11]
     easy_scores = easy_mode.col_values(2)[1:11]
+    # ↓↓↓CREDIT: stackoverflow↓↓↓
     sorted_easy = sorted(
         zip(easy_usernames, easy_scores),
         key=lambda pair: int(pair[1]), reverse=True)
+    # ↑↑↑CREDIT: stackoverflow↑↑↑
 
     medium_mode = SHEET.worksheet("Medium mode")
     medium_usernames = medium_mode.col_values(1)[1:11]
@@ -237,6 +242,14 @@ def check_guessed_code_against_secret_one(gen_code, digits, attempts):
     while attempts > 0:
         entered_code = input(f"Enter your {digits} digits here, \
 separated by a comma: \n").split(",")
+
+        # ↓↓↓CREDIT: MicrosoftCopilot↓↓↓
+        if not all(x.strip().isdigit() for x in entered_code):
+            print(f"{Fore.RED}Error: \
+Your code may only contain numbers!{Style.RESET_ALL}")
+            continue
+        # ↑↑↑CREDIT: MicrosoftCopilot↑↑↑
+
         guessed_code = [int(x) for x in entered_code]
         try:
             if validate_guessed_code(guessed_code, digits):
