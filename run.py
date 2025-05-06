@@ -71,7 +71,7 @@ you entered {len(username)}")
         return True
 
 
-def start_game_or_view_history(username):
+def start_rankings_quit(username):
     """
     Presents the user with the possibility to either \
     start playing the game or to view the rankings \
@@ -79,7 +79,7 @@ def start_game_or_view_history(username):
     """
     print(f"{username}, what would you like to do?\n")
     print("1. Start the game")
-    print("2. View ranking")
+    print("2. View rankings")
     print("3. Quit the game\n")
     start_menu_choice = None
     while True:
@@ -245,10 +245,10 @@ separated by a comma: \n").split(",")
 
         # ↓↓↓CREDIT: MicrosoftCopilot↓↓↓
         if not all(x.strip().isdigit() for x in entered_code):
+            # ↑↑↑CREDIT: MicrosoftCopilot↑↑↑
             print(f"{Fore.RED}Error: \
 Your code may only contain numbers!{Style.RESET_ALL}")
             continue
-        # ↑↑↑CREDIT: MicrosoftCopilot↑↑↑
 
         guessed_code = [int(x) for x in entered_code]
         try:
@@ -311,7 +311,7 @@ def update_leaderboard(username, mode, score):
 def main():
     chosen_username = start_program()
     while True:
-        start_menu_choice = start_game_or_view_history(chosen_username)
+        start_menu_choice = start_rankings_quit(chosen_username)
         if start_menu_choice == 1:
             selected_mode = choose_mode(chosen_username)
             generated_code = generate_secret_code(selected_mode)

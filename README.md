@@ -117,16 +117,24 @@ To fix this, I used the .join method like in the example here below, to turn the
 <h3>Content</h3>
 <ul>
 <li>For the code to exclude double values in the secret code (generate_secret_code function), I consulted <a href="https://www.geeksforgeeks.org/python-random-sample-function/" target="_blank">geeksforgeeks</a></li>
-
+<br>
 <img src="assets/images-for-README/exclude-double-values-secret-code.PNG">
-
+<br>
+<li>For the code to make sure the username-score pairs from the external Leaderboard Excel-sheet be shown in decreasing order of score, I consulted <a href="https://stackoverflow.com/questions/10695139/sort-a-list-of-tuples-by-2nd-item-integer-value" target="_blank">stackoverflow</a></li>
+<br>
+<img src="assets/images-for-README/sorted-lambda-method.PNG">
+<br>
+<li>For the validation system, that checks for unwanted letters/symbols other than numbers in the code entered by the user, I used the following solution, suggested by <a href="https://copilot.microsoft.com/" target="_blank">Microsoft Copilot</a></li>
+<br>
+<img src="assets/images-for-README/validation-guessed-code-no-lett-or-other-symbols.PNG">
+<br>
 <li>The suggestion to use the colorama library to add colours to the error messages and the feedback components was given to me by my mentor, Dick Vlaanderen. For its correct usage in the code, <a href="https://pypi.org/project/colorama/" target="_blank">https://pypi.org/project/colorama/</a> was consulted.</li>
 </ul>
 <h3>Used technologies</h3>
 <ul>
-<li>This entire App was developped using Python</li>
+<li>This entire app was developed using Python</li>
 <li><a href="https://copilot.microsoft.com/" target="_blank">Microsoft Copilot</a> was used to create the logo of this app (see top of this README file)</li>
 </ul>
 <h3>Media</h3>
-All used screenshots were taken from my own devices
+All used screenshots were taken from my own laptop
 
