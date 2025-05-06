@@ -76,10 +76,12 @@ def start_game_or_view_history(username):
     """
     print(f"{username}, what would you like to do?\n")
     print("1. Start the game")
-    print("2. View rankings\n")
+    print("2. View ranking")
+    print("3. Quit the game\n")
     start_menu_choice = None
     while True:
-        start_menu_choice = int(input("Please enter 1 or 2 to make a choice:"))
+        start_menu_choice = int(input("Please enter 1, 2 or 3  \
+to make a choice:"))
         try:
             if validate_start_menu_choice(start_menu_choice):
                 break
@@ -93,7 +95,7 @@ def validate_start_menu_choice(start_menu_choice):
     Checks for correct menu choice input.
     Raises an error when the input isn't 1 or 2.
     """
-    if start_menu_choice not in [1, 2]:
+    if start_menu_choice not in [1, 2, 3]:
         raise ValueError("Invalid input. Please enter 1 or 2")
     else:
         return True
@@ -101,34 +103,44 @@ def validate_start_menu_choice(start_menu_choice):
 
 def view_rankings():
     """
-    Allows the user to view the rankings for the different modes
+    Allows the user to view the first 10 \
+    items in the rankings for the different modes
     """
     easy_mode = SHEET.worksheet("Easy mode")
-    easy_usernames = easy_mode.col_values(1)[1:10]
-    easy_scores = easy_mode.col_values(2)[1:10]
+    easy_usernames = easy_mode.col_values(1)[1:11]
+    easy_scores = easy_mode.col_values(2)[1:11]
+    sorted_easy = sorted(
+        zip(easy_usernames, easy_scores),
+        key=lambda pair: int(pair[1]), reverse=True)
 
     medium_mode = SHEET.worksheet("Medium mode")
-    medium_usernames = medium_mode.col_values(1)[1:10]
-    medium_scores = medium_mode.col_values(2)[1:10]
+    medium_usernames = medium_mode.col_values(1)[1:11]
+    medium_scores = medium_mode.col_values(2)[1:11]
+    sorted_medium = sorted(
+        zip(medium_usernames, medium_scores),
+        key=lambda pair: int(pair[1]), reverse=True)
 
     hard_mode = SHEET.worksheet("Hard mode")
-    hard_usernames = hard_mode.col_values(1)[1:10]
-    hard_scores = hard_mode.col_values(2)[1:10]
+    hard_usernames = hard_mode.col_values(1)[1:11]
+    hard_scores = hard_mode.col_values(2)[1:11]
+    sorted_hard = sorted(
+        zip(hard_usernames, hard_scores),
+        key=lambda pair: int(pair[1]), reverse=True)
 
     print("----------")
     print("----------")
     print(f"{Fore.GREEN + "Easy mode" + Style.RESET_ALL}\n")
-    for username, score in zip(easy_usernames, easy_scores):
+    for username, score in sorted_easy:
         print(f"{username}: {score}")
     print("----------")
     print("----------")
     print(f"{Fore.GREEN + "Medium mode" + Style.RESET_ALL}\n")
-    for username, score in zip(medium_usernames, medium_scores):
+    for username, score in sorted_medium:
         print(f"{username}: {score}")
     print("----------")
     print("----------")
     print(f"{Fore.GREEN + "Hard mode" + Style.RESET_ALL}\n")
-    for username, score in zip(hard_usernames, hard_scores):
+    for username, score in sorted_hard:
         print(f"{username}: {score}")
     print("----------")
     print("----------")
@@ -176,13 +188,13 @@ def generate_secret_code(mode):
     number_of_attempts = None
     if mode == 1:
         number_of_digits = 4
-        number_of_attempts = 4
+        number_of_attempts = 10
     elif mode == 2:
         number_of_digits = 6
-        number_of_attempts = 4
+        number_of_attempts = 15
     elif mode == 3:
         number_of_digits = 10
-        number_of_attempts = 8
+        number_of_attempts = 20
 
     # ↓↓↓CREDIT: geeksforgeeks↓↓↓
     secret_code = random.sample(range(11), number_of_digits)
@@ -263,7 +275,7 @@ def assign_points(username, attempts_left):
     Assigns 50 points to the user for each left attempt
     """
     score = attempts_left * 50
-    print(f"{username}, this is your score: {score}")
+    print(f"{username}, this is your score: {score}\n")
 
     return score
 
@@ -293,9 +305,10 @@ def main():
             feedback = check_guessed_code_against_secret_one(*generated_code)
             final_score = assign_points(chosen_username, feedback)
             update_leaderboard(chosen_username, selected_mode, final_score)
-            break
         elif start_menu_choice == 2:
             view_rankings()
+        elif start_menu_choice == 3:
+            break
 
 
 main()
