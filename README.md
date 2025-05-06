@@ -145,7 +145,8 @@ Here too, the player will be able to start the game again (and therefore choose 
 </ul>
 
 <h2 style="color: darkorange">Data Model</h2>
-<p>The Code Breakers game operates with a structured data model centered around user inputs, game logic, and leaderboard management. The app dynamically generates a secret code and processes user guesses through validation and feedback mechanisms. Player attempts are stored in lists, ensuring efficient comparison with the correct sequence. The game maintains a leaderboard by retrieving usernames and scores from Google Sheets, where data is sorted and displayed appropriately. This model ensures a seamless flow of interaction, allowing for a competitive and engaging experience.</p>
+<p>The Code Breakers game operates with a structured data model centered around user inputs, game logic, and leaderboard management. The app dynamically generates a secret code and processes user guesses through validation and feedback mechanisms. Player attempts are stored in lists, ensuring efficient comparison with the correct sequence. The game maintains a leaderboard by retrieving usernames and scores from Google Sheets, where data is sorted and displayed appropriately.
+For the purpose of this project, I've prepopulated the sheet with a number of username-score pairs, which were all added by the program after playing in different modes.</p>
 
 <h2 style="color: darkorange">Testing</h2>
 <p>Please refer to <a href="TESTING.md">TESTING.md</a></p>

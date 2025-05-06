@@ -218,8 +218,9 @@ def generate_secret_code(mode):
 
     print("The secret code has been generated!\n")
     print("Get your brain juices flowin' and start crackin' the code!\n")
-    print(f"Your code must contain {number_of_digits} digits")  # DELETE!!!
-    print(f"DELETE; the secret code is {secret_code}")  # DELETE!!!
+    print(f"Your code must contain {number_of_digits} digits")
+    print(f"TO BE DELETED IN DEFINITIVE VERSION; \
+the secret code is {secret_code}")
     return (secret_code, number_of_digits, number_of_attempts)
 
 
