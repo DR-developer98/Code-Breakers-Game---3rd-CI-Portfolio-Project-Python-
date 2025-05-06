@@ -99,7 +99,7 @@ def validate_start_menu_choice(start_menu_choice):
     Raises an error when the input isn't 1 or 2.
     """
     if start_menu_choice not in [1, 2, 3]:
-        raise ValueError("Invalid input. Please enter 1 or 2")
+        raise ValueError("Invalid input. Please enter 1, 2 or 3")
     else:
         return True
 
@@ -157,8 +157,8 @@ def choose_mode(username):
     """
     print(f"Hi, {username}, how hard will you be challenging yourself today?")
     print("Choose mode:\n")
-    print("1. Easy (4-digit code)\n")
-    print("2. Medium (6-digit code)\n")
+    print("1. Easy (4-digit code)")
+    print("2. Medium (6-digit code)")
     print("3. Hard (10-digit code)\n")
     while True:
         entered_mode = int(input("Please enter 1, 2 or 3 \
@@ -193,13 +193,13 @@ def generate_secret_code(mode):
     number_of_attempts = None
     if mode == 1:
         number_of_digits = 4
-        number_of_attempts = 10
+        number_of_attempts = 4
     elif mode == 2:
         number_of_digits = 6
-        number_of_attempts = 15
+        number_of_attempts = 6
     elif mode == 3:
         number_of_digits = 10
-        number_of_attempts = 20
+        number_of_attempts = 10
 
     # ↓↓↓CREDIT: geeksforgeeks↓↓↓
     secret_code = random.sample(range(11), number_of_digits)
@@ -306,6 +306,7 @@ def update_leaderboard(username, mode, score):
     elif mode == 3:
         mode_worksheet = SHEET.worksheet("Hard mode")
     mode_worksheet.append_row(row)
+    print(f"{username}, you've been succesfully added to the leaderboard!\n")
 
 
 def main():
@@ -321,7 +322,7 @@ def main():
         elif start_menu_choice == 2:
             view_rankings()
         elif start_menu_choice == 3:
-            break
+            start_program()
 
 
 main()

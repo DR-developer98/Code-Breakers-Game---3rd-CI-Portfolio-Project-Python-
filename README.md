@@ -31,7 +31,7 @@ With each attempt, the player will be provided feedback by the computer. In the 
 Using the provided feedback, the player will have to make the needed adjustments to their code, in order to try and guess the secret one before they run out of attempts.
 
 <h2 style="color: darkorange">Features</h2>
-<h3>Start window</h3>
+<h3 style="color: gold">Start window</h3>
 <p>In the start window, the player will be presented with a short explanation of the game, its rules and the feedback elements.
 The player will be asked to enter a username of at least 5 characters.</p>
 <br>
@@ -48,9 +48,79 @@ The player will be asked to enter a username of at least 5 characters.</p>
 <p>The player will be provided feedback, if the username passes through the validator.</p>
 <img src="assets/images-for-README/entered-username-is-valid.PNG">
 <img >
-<h3>Start game/View rankings menu</h3>
-<p>After entering a valid name, the player will be presented with a short menu with two options:</p>
-<ol></ol>
+<h3 style="color: gold">Start menu</h3>
+<p>After entering a valid name, the player will be presented with a short menu with three options:</p>
+<ol>
+<li>Start game</li>
+<li>View rankings</li>
+<li>Quit game</li>
+</ol>
+
+<img src="assets/images-for-README/start_menu.PNG">
+
+<p>The player will be able to select one of the options by entering the corresponding number (either 1, 2 or 3).
+The user's input will pass through another validation system, that checks whether the entered value is an element of the [1, 2, 3] list.
+Feedback will be provided to the user, if the input is found to be invalid:</p>
+
+<img src="#">
+
+<h4><em>View Rankings</em></h4>
+<p>Entering 2 will load the rankings for the different modes. For each mode, the first 10 user-score pairs will be displayed. At the bottom of the list, the player will be able to either start the game, view the rankings again or quit the game.</p>
+
+<img src="#">
+
+<h4><em>Quit the game</em></h4>
+<p>Inputting 3 will redirect the user to the start window, where the game rules and the feedback explanation are listed and where the user will be able to choose another username.</p>
+
+<img src="#">
+
+<h4><em>Start the game</em></h4>
+<p>Finally, choosing 1 (start the game) will forward the user to a choose mode menu, which comprises three difficulty degrees. Each mode name contains, inbetween brackets, the number of digits of the secret code.<p>
+
+<img src="#">
+
+<p>Here the player will be able to select the desired mode by entering the corresponding number: 1 for easy, 2 for medium and 3 for hard. This time around too, the input will pass through a validation system, that checks whether the entered value is an element of the list [1, 2, 3]. If this isn't the case, the program will provide feedback to the user</p>
+
+<img src="#">
+
+<h3 style="color: gold">Actual game</h3>
+<p>Once a mode is correctly chosen, the program will generate a secret code, will mention the number of digits, the maximum number of attempts and will instruct the user as to how to enter their guess (correct number of digits from 0 to 10, separated by a comma). A validation system is included to ensure the code is in the right format, only contains numbers (from 0 to 10 included), contains the right number of digits (given by the mode) and doesn't contain letters or other symbols. Feedback will be given to the user, in the event of their code not complying with the given instructions</p>
+
+<img src="#">
+<img src="#">
+<img src="#">
+<img src="#">
+
+<p>If the entered code is in the right format, the program will start providing feedback, utilizing the elements listed in the start page.<p>
+
+<img src="#">
+
+<p>If the user doesn't guess right, the number of attempts will decrease by one. The program is designed to notify the player with each incorrect guess</p>
+
+<img src="#">
+
+<h4><em>Loss: the player is out of attempts</em></h4>
+<p>If the player doesn't manage to guess the secret code within the given number of attempts, the program will provide the following feedback, revealing the secret code and reporting the username and the score (0):</p>
+
+<img src="#">
+
+<p>The username and the score will be added to the the worksheet of the corresponding mode in the external Excel file (leaderboard).</p>
+
+<img src="#">
+
+<p>At the end, the user will be presented with the start menu again</p>
+
+<img src="#">
+
+<h4><em>Win: the player cracks the code before running out of attempts</em></h4>
+<p>If the player manages to crack the code with some attempts to spare, the program will congratulate the user and show their score:</p>
+
+<img src="#">
+
+<p>The score equals to the number of left attempts when cracking the code, multiplied by 50.
+Here too, the player will be able to start the game again (and therefore choose another mode, if desired), view the rankings or quit the game. To choose another username, the user will have to quit the game first.</p>
+
+<img src="#">
 
 <h3>Future implementations</h3>
 <p>Future implementations may include:</p>
