@@ -59,70 +59,82 @@ The player will be asked to enter a username of at least 5 characters.</p>
 <img src="assets/images-for-README/start_menu.PNG">
 
 <p>The player will be able to select one of the options by entering the corresponding number (either 1, 2 or 3).
-The user's input will pass through another validation system, that checks whether the entered value is an element of the [1, 2, 3] list.
+The user's input will pass through another validation system, that checks whether the entered value can be parsed into an integer and if so, if it's an element of the [1, 2, 3] list.
 Feedback will be provided to the user, if the input is found to be invalid:</p>
 
-<img src="#">
+<p><em>Example 1: entering letters</em></p>
+<img src="assets/images-for-README/invalid-input-start-menu-1.PNG">
+<br>
+<p><em>Example 2: entering a mix of symbols, alphabetical and numeric values</em></p>
+<img src="assets/images-for-README/invalid-input-start-menu-2.PNG">
+<br>
+<p><em>Example 3: entering a numeric value outside of the scope [1, 2, 3]</em></p>
+<img src="assets/images-for-README/invalid-number-input-start-menu.PNG">
 
-<h4><em>View Rankings</em></h4>
+<h4><em style="color: yellow">View Rankings</em></h4>
 <p>Entering 2 will load the rankings for the different modes. For each mode, the first 10 user-score pairs will be displayed. At the bottom of the list, the player will be able to either start the game, view the rankings again or quit the game.</p>
 
-<img src="#">
+<img src="assets/images-for-README/rankings-part-1.PNG">
+<img src="assets/images-for-README/rankings-part-2-plus-start-menu.PNG">
 
-<h4><em>Quit the game</em></h4>
+<h4><em style="color: yellow">Quit the game</em></h4>
 <p>Inputting 3 will redirect the user to the start window, where the game rules and the feedback explanation are listed and where the user will be able to choose another username.</p>
 
-<img src="#">
+<img src="assets/images-for-README/quit-game-part-1.PNG">
+<img src="assets/images-for-README/quit-game-part-2.PNG">
 
-<h4><em>Start the game</em></h4>
+<h4><em style="color: yellow">Start the game</em></h4>
 <p>Finally, choosing 1 (start the game) will forward the user to a choose mode menu, which comprises three difficulty degrees. Each mode name contains, inbetween brackets, the number of digits of the secret code.<p>
 
-<img src="#">
+<img src="assets/images-for-README/start-the-game-part-1.PNG">
+<img src="assets/images-for-README/mode-choosing-menu.PNG">
 
-<p>Here the player will be able to select the desired mode by entering the corresponding number: 1 for easy, 2 for medium and 3 for hard. This time around too, the input will pass through a validation system, that checks whether the entered value is an element of the list [1, 2, 3]. If this isn't the case, the program will provide feedback to the user</p>
+<p>Here the player will be able to select the desired mode by entering the corresponding number: 1 for easy, 2 for medium and 3 for hard. This time around too, the input will pass through a validation system, that checks whether the entered value can be converted into an integer and if so, if it's an element of the list [1, 2, 3]. If this isn't the case, the program will provide feedback to the user</p>
 
-<img src="#">
+<img src="assets/images-for-README/feedback-invalid-mode-input.PNG">
 
 <h3 style="color: gold">Actual game</h3>
-<p>Once a mode is correctly chosen, the program will generate a secret code, will mention the number of digits, the maximum number of attempts and will instruct the user as to how to enter their guess (correct number of digits from 0 to 10, separated by a comma). A validation system is included to ensure the code is in the right format, only contains numbers (from 0 to 10 included), contains the right number of digits (given by the mode) and doesn't contain letters or other symbols. Feedback will be given to the user, in the event of their code not complying with the given instructions</p>
+<p>Once a mode is correctly chosen, the program will generate a secret code, will mention the number of digits, the maximum number of attempts and will instruct the user as to how to enter their guess (correct number of digits from 0 to 10, separated by a comma).</p>
 
-<img src="#">
-<img src="#">
-<img src="#">
-<img src="#">
+<img src="assets/images-for-README/correctly-choosing-a-mode.PNG">
+<img src="assets/images-for-README/correctly-choosing-a-mode-2.PNG">
+
+<p>A validation system is included to ensure the code is in the right format, only contains numbers (from 0 to 10 included), contains the right number of digits (given by the mode) and doesn't contain letters or other symbols. Feedback will be given to the user, in the event of their code not complying with the given instructions</p>
+
+<img src="assets/images-for-README/feedback-invalid-code-input.PNG">
 
 <p>If the entered code is in the right format, the program will start providing feedback, utilizing the elements listed in the start page.<p>
 
-<img src="#">
+<img src="assets/images-for-README/feedback-valid-code-input.PNG">
 
 <p>If the user doesn't guess right, the number of attempts will decrease by one. The program is designed to notify the player with each incorrect guess</p>
 
-<img src="#">
+<img src="assets/images-for-README/decreasing-attempts.PNG">
 
-<h4><em>Loss: the player is out of attempts</em></h4>
+<h4><em style="color: yellow">Loss: the player is out of attempts</em></h4>
 <p>If the player doesn't manage to guess the secret code within the given number of attempts, the program will provide the following feedback, revealing the secret code and reporting the username and the score (0):</p>
 
-<img src="#">
+<img src="assets/images-for-README/feedback-loss.PNG">
 
 <p>The username and the score will be added to the the worksheet of the corresponding mode in the external Excel file (leaderboard).</p>
 
-<img src="#">
+<img src="assets/images-for-README/updated-leaderboard.PNG">
 
 <p>At the end, the user will be presented with the start menu again</p>
 
-<img src="#">
+<img src="assets/images-for-README/start-menu-after-loss.PNG">
 
-<h4><em>Win: the player cracks the code before running out of attempts</em></h4>
-<p>If the player manages to crack the code with some attempts to spare, the program will congratulate the user and show their score:</p>
+<h4><em style="color: yellow">Win: the player cracks the code before running out of attempts</em></h4>
+<p>If the player manages to crack the code with some attempts to spare, the program will congratulate the user, show their score and notify them that they've been added to the leaderboard:</p>
 
-<img src="#">
+<img src="assets/images-for-README/feedback-win.PNG">
 
 <p>The score equals to the number of left attempts when cracking the code, multiplied by 50.
 Here too, the player will be able to start the game again (and therefore choose another mode, if desired), view the rankings or quit the game. To choose another username, the user will have to quit the game first.</p>
 
-<img src="#">
+<img src="assets/images-for-README/start-menu-after-win.PNG">
 
-<h3>Future implementations</h3>
+<h3 style="color: gold">Future implementations</h3>
 <p>Future implementations may include:</p>
 <ul>
 <li>the possibility to include double values in the secret code to add another layer of complexity to the game;</li>
