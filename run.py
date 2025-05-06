@@ -235,7 +235,7 @@ def validate_guessed_code(user_code, digits):
     for x in user_code:
         if x not in range(11):
             raise ValueError("The code may only contain \
-numbers between 0 and 10")
+numbers from 0 to 10")
     if len(user_code) != digits:
         raise ValueError(f"In this mode you need to provide {digits} digits, \
 you've entered {len(user_code)}")

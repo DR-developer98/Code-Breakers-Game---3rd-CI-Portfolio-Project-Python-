@@ -142,47 +142,7 @@ Here too, the player will be able to start the game again (and therefore choose 
 </ul>
 
 <h2 style="color: darkorange">Testing</h2>
-<h3>Validator Testing</h3>
-I passed the code through a PEP8 Linter and confirmed there are no problems
-<br>
-<img src="assets/images-for-README/PEP8-validator-result.PNG" style="width: 50%">
-<h3>Manual testing</h3>
-<table>
-<tr>
-<th style="color: gold">Action</th>
-<th style="color: gold">Expected behaviour</th>
-<th style="color: gold">Pass/Fail</th>
-</tr>
-</table>
-<h3>Fixed bugs</h3>
-<ul>
-<li>The program was originating two different secret codes and was prompting the user to input their guess twice. This was caused by the generate_secret_code(mode) and input_guessed_code(gen_code, digits, attempts) being called twice. Since both functions return a tuple with three variables, I had to unpack them in order to access the variables that I had to pass as arguments to the input_guessed_code function.
-At the beginning I used the following solution:</li>
-
-<img src="assets/images-for-README/wrong-approach-to-input-guessed-code.PNG">
-
-but then I understood that I was in fact calling the functions twice.
-This was solved by:
-1. merging the function that was handling the input of the user's guess and that, which was responsible for the validation of the entered code. The new function became check_guessed_code_against_secret_one(gen_code, digits, attempts);
-2. unpacking the tuple with the returned variables from the function "generate_secret_code(mode)" (as *args) directly when defining the "feedback" variable within the "main()" function.
-
-<p style="color: gold; font-weight: bold">Tuple with returned variables from generate_secret_code function</p>
-<img src="assets/images-for-README/tuple-w-returned-vars-gen-secret-code-func.PNG">
-<p style="color: gold; font-weight: bold">Unpacking tuple when defining feedback variable/calling check_guessed_code_against_secret_one function</p>
-<img src="assets/images-for-README/unpacking-returned-results-in-cgcasc-function.PNG">
-
-<li>At some point the program was seemingly swapping number_of_attempts with number_of_digits. This was caused by the order, in which I had mentioned the parameters inside the brackets of the check_guessed_code_against_secret_one(gen_code, attempts, digits) function, so when unpacking the tuple with the returned variables from the generated_code variable, the number_of_attempts and number_of_digits were being assigned respectively to digits and to attempts. This was simply fixed by changing the order of the parameters to (gen_code, digits, attempts).</li><br>
-
-<li>When implementing colorama to add colour to the feedback elements (O, X and -), the terminal was returning something like:</li>
-<br>
-<em>"here is your feedback: ['\x1b[32mO\x1b[0m', '\x1b[33mX\x1b[0m', '\x1b[33mX\x1b[0m', '\x1b[33mX\x1b[0m']"</em>
-<br>
-<br>
-This was caused by the feedback being provided to the user in the form of a list of strings.
-To fix this, I used the .join method like in the example here below, to turn the list into one single string, where the colours where rendered correctly. CREDIT: <a href="https://copilot.microsoft.com/" target="_blank">Microsoft Copilot</a>
-<br>
-<img src="assets/images-for-README/here-is-your-feedback.PNG">
-</ul>
+<p>Please refer to <a href="TESTING.md">TESTING.md</a></p>
 
 <h2 style="color: darkorange">Deployment</h2>
 <p>This project was deployed using Code Institute's mock terminal for Heroku.</p>
